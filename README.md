@@ -9,6 +9,11 @@ Dokumentation zum neuen Datenmodell [hier](https://github.com/simi-so/simi/tree/
 
 ## Datenmigration
 
+* Mittels lokalem GRETL
+* Muss mittels Knopdruck wiederholt werden können. Wenn vom Aufwand her vertretbar inklusive inklusive
+  * Einspielung des Config-DB Dump
+  * Anwenden des DDL-SQL zwecks Erstellung der leeren Tabellen der SIMI-DB
+
 ### Artefakte
 
 * "Conf-DB Dump" Dump von Struktur und Inhalt der Config-DB
