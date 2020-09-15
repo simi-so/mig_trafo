@@ -1,0 +1,21 @@
+import ch.so.agi.gretl.tasks.*
+import ch.so.agi.gretl.api.TransferSet
+
+apply plugin: 'ch.so.agi.gretl'
+
+defaultTasks 'iam'
+
+task iam(type: Db2Db){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            //new TransferSet('identity_group.sql', 'public.simiiam_identity', false),
+            //new TransferSet('identity_user.sql', 'public.simiiam_identity', false),
+            //new TransferSet('user.sql', 'public.simiiam_user', false),
+            //new TransferSet('group.sql', 'public.simiiam_group', false),
+            //new TransferSet('group_user.sql', 'public.simiiam_group_user_link', false),
+            //new TransferSet('role.sql', 'public.simiiam_role', false),
+            //new TransferSet('role_group.sql', 'public.simiiam_role_group_link', false),
+            new TransferSet('user_role.sql', 'public.simiiam_role_user_link', false),
+    ]
+}
