@@ -13,3 +13,5 @@ scp bjsvwsch@geoapp.verw.rootso.org:/opt/workspace/dbdump/soconfig_geodb.rootso.
 pg_restore -h 10.36.43.200 -p 54323 -U postgres -d config Dropbox/Arbeit/Simi/soconfig_geodb.rootso.org.dmp --clean
 
 psql -h 10.36.43.200 -p 54323 -d soconfig -U postgres -c "SET ROLE postgres" -q -f Dropbox/Arbeit/Simi/mig_trafo/mig/simi_ddl_20200910.sql
+
+psql -h 10.36.43.200 -p 54323 -d soconfig -U postgres -c "SET ROLE postgres" -q -f Dropbox/Arbeit/Simi/mig_trafo/mig/base_attr_v.sql
