@@ -1,0 +1,18 @@
+import ch.so.agi.gretl.tasks.*
+import ch.so.agi.gretl.api.TransferSet
+
+apply plugin: 'ch.so.agi.gretl'
+
+defaultTasks 'data'
+
+task data(type: Db2Db){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            //new TransferSet('postgres_db.sql', 'public.simidata_postgres_db', true),
+            //new TransferSet('model_schema.sql', 'public.simidata_model_schema', true),
+            //new TransferSet('table_ds.sql', 'public.simidata_table_ds', true),
+            //new TransferSet('postgres_table.sql', 'public.simidata_postgres_table', true),
+            new TransferSet('product_data_set_view.sql', 'public.simiproduct_data_set_view', true),
+    ]
+}

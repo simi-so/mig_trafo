@@ -1,0 +1,11 @@
+Notes: 
+
+- simiiam_user: firstname und lastname machen keinen Sinn. Die user sind sehr oft keine "normalen Menschen" sondern auch Organisationen oder "fake user", welche keinen Vor- und Nachnamen haben/brauchen. Diese Attribute können also gestrichen werden! 
+
+- simidata_postgres_db: ext1 wurde mit connection-string befüllt. 
+
+- simidata_model_schema: postgres_db_id darf nicht eindeutig sein müssen! Das ist ja die ID der entsprechenden DB. Die ist naturgemäss nicht eindeutig! 
+
+- Bei der Tabelle table_ds wurde als ext1 der Schema-Name importiert, da ansonsten die Tabelle postgres_Table unmöglich richtig befüllt werden kann (Ist wahrscheinlich nur für den Umbau nötig!)
+
+- 
