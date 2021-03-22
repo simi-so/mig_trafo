@@ -1,4 +1,5 @@
 SELECT 
+    DISTINCT ON (data_set_name, database_ids) 
     uuid_generate_v4() AS id, 
     version, 
     create_ts,
@@ -8,7 +9,7 @@ SELECT
     split_part(data_set_name,'.',1) AS ext1,
     database_ids.id AS ext2,
     data_set.gdi_oid AS ext3,
-    data_set.description AS remarks
+    NULL AS remarks
 FROM 
     gdi_knoten.data_set data_set
 LEFT JOIN 

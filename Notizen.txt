@@ -8,4 +8,13 @@ Notes:
 
 - Bei der Tabelle table_ds wurde als ext1 der Schema-Name importiert, da ansonsten die Tabelle postgres_Table unmöglich richtig befüllt werden kann (Ist wahrscheinlich nur für den Umbau nötig!)
 
-- 
+- simiproduct_data_product: pub_scope_id darf keine uuid sein! keywords und Synonyms müssen über 200 Zeichen enthalten können (400 sollte reichen)! 
+
+
+ENUMS: 
+
+- Klasse DataSetView -> searchType (Momentan 1 reingefakt!) 
+
+
+ALTER TABLE public.simiproduct_single_actor
+    ADD COLUMN custom_legend bytea;

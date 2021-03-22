@@ -16,6 +16,10 @@ task iam(type: Db2Db){
             //new TransferSet('group_user.sql', 'public.simiiam_group_user_link', false),
             //new TransferSet('role.sql', 'public.simiiam_role', false),
             //new TransferSet('role_group.sql', 'public.simiiam_role_group_link', false),
-            new TransferSet('user_role.sql', 'public.simiiam_role_user_link', false),
+            //new TransferSet('user_role.sql', 'public.simiiam_role_user_link', false),
+
+            // DIESER SCHRITT KANN ERST NACH DEM IMPORT DER DATEN ERFOLGEN!!!!
+
+            new TransferSet('permissions.sql', 'public.simiiam_permission', false),
     ]
 }

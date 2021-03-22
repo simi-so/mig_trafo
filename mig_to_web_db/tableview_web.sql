@@ -1,0 +1,10 @@
+SELECT 
+    id, 
+    where_clause, 
+    geom_field_name, 
+    geo_type, 
+    geo_epsg_code, 
+    wgc_edit, 
+    postgres_table_id
+FROM 
+    public.simidata_table_view;

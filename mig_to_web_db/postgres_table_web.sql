@@ -1,0 +1,11 @@
+SELECT 
+    id, 
+    id_field_name, 
+    model_schema_id, 
+    description_model, 
+    cat_sync_stamp, 
+    geo_field_name, 
+    geo_type, 
+    geo_epsg_code
+FROM 
+    public.simidata_postgres_table;

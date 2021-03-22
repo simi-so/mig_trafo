@@ -1,0 +1,26 @@
+SELECT 
+    id, 
+    version, 
+    create_ts, 
+    created_by, 
+    update_ts, 
+    updated_by, 
+    delete_ts, 
+    deleted_by, 
+    ext1, 
+    ext2, 
+    ext3, 
+    ext4, 
+    ext5, 
+    display_text, 
+    overall_state, 
+    default_value, 
+    for_dsv, 
+    for_group, 
+    for_map, 
+    pub_to_wms, 
+    pub_to_wgc, 
+    pub_to_locator, 
+    sort
+FROM 
+    public.simiproduct_data_product_pub_scope;

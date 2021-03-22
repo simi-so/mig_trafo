@@ -1,0 +1,12 @@
+SELECT 
+    id, 
+    raw_download, 
+    style_server, 
+    style_server_uploaded, 
+    style_desktop, 
+    style_desktop_uploaded, 
+    search_type, 
+    search_facet, 
+    search_filter_word
+FROM 
+    public.simiproduct_data_set_view;

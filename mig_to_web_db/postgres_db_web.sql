@@ -1,0 +1,18 @@
+SELECT 
+    id, 
+    version, 
+    create_ts, 
+    created_by, 
+    update_ts, 
+    updated_by, 
+    delete_ts, 
+    deleted_by, 
+    ext1, 
+    ext2, 
+    ext3, 
+    ext4, 
+    ext5, 
+    db_name, 
+    default_value
+FROM 
+    public.simidata_postgres_db;
