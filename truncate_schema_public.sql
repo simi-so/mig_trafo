@@ -1,0 +1,1 @@
+select gdi_knoten.truncate_schema('public');

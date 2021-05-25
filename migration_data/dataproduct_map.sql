@@ -4,7 +4,7 @@ SELECT
     create_ts,
     created_by, 
     update_ts, 
-    2 AS dtype, --MUSS NOCH ANGEPASST WERDEN!!!
+    'simiProduct_Map' AS dtype,
     name||'_map' AS identifier, 
     '0a866696-8903-c333-c2c7-db6b6fd8d628'::uuid AS pub_scope_id,  --MUSS NOCH ANGEPASST WERDEN (woher soll diese Information kommen?) 
     title AS title

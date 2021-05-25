@@ -1,11 +1,18 @@
 SELECT 
     id, 
+    update_ts,
+    updated_by,
+    create_ts,
+    created_by,
+    "version",
     id_field_name, 
-    model_schema_id, 
+    data_theme_id, 
     description_model, 
     cat_sync_stamp, 
     geo_field_name, 
     geo_type, 
-    geo_epsg_code
+    geo_epsg_code, 
+    table_name, 
+    remarks
 FROM 
     public.simidata_postgres_table;

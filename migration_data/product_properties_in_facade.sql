@@ -5,7 +5,6 @@ SELECT
     created_by, 
     update_ts, 
     sort, 
-    transparency, 
     id_sublayer AS data_set_view_id, 
     id_layergroup AS facade_layer_id
 FROM 
@@ -14,4 +13,4 @@ FROM
 WHERE 
     facade = true
 AND 
-    id_sublayer IN (SELECT id FROM simiproduct_data_set_view)
+    id_sublayer IN (SELECT id FROM simidata_data_set_view)

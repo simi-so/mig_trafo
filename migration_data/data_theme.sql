@@ -5,7 +5,6 @@ SELECT
     created_by, 
     update_ts, 
     split_part(data_set_name,'.',1) AS "schema_name", 
-    NULL AS model_name,
     postgres_db.id AS postgres_db_id
 FROM 
     (SELECT DISTINCT ON (split_part(data_set_name,'.',1), gdi_oid_data_source) * FROM gdi_knoten.data_set) data_set

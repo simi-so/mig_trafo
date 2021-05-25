@@ -5,15 +5,7 @@ SELECT
     created_by, 
     update_ts, 
     updated_by, 
-    delete_ts, 
-    deleted_by, 
-    ext1, 
-    ext2, 
-    ext3, 
-    ext4, 
-    ext5, 
     schema_name, 
-    model_name, 
     postgres_db_id
 FROM 
-    public.simidata_model_schema;
+    public.simidata_data_theme;

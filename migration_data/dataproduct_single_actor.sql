@@ -1,6 +1,8 @@
 SELECT 
     simiproduct_data_product.id AS id, 
-    product.layer_transparency AS transparency
+    product.layer_transparency AS transparency, 
+    product.legend_image as custom_legend, 
+    RIGHT(product.legend_filename, 3) as custom_legend_suffix 
 FROM 
     (         SELECT ows_layer.gdi_oid,
                      ows_layer.layer_transparency,
@@ -21,7 +23,9 @@ FROM
                     WHEN ows_layer.ows_metadata IS NULL THEN false
                     WHEN btrim(ows_layer.ows_metadata::text) = ''::text THEN false
                     ELSE true
-                END AS dset_info
+                END AS dset_info, 
+                legend_image, 
+                legend_filename 
            FROM gdi_knoten.ows_layer
              LEFT JOIN gdi_knoten.ows_layer_group ON ows_layer.gdi_oid = ows_layer_group.gdi_oid
 	         LEFT JOIN gdi_knoten.ows_layer_data ON ows_layer.gdi_oid = ows_layer_data.gdi_oid 

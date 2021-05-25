@@ -3,31 +3,29 @@ import ch.so.agi.gretl.api.TransferSet
 
 apply plugin: 'ch.so.agi.gretl'
 
-defaultTasks 'data'
+defaultTasks 'iam'
 
 task data(type: Db2Db){
     sourceDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
     targetDb = [dbUriSimi_web, dbUserSimi_web, dbPwdSimi_web]
     transferSets = [
-            //new TransferSet('postgres_db_web.sql', 'public.simidata_postgres_db', true),
-            //new TransferSet('model_schema_web.sql', 'public.simidata_model_schema', true),
-            //new TransferSet('table_ds_web.sql', 'public.simidata_table_ds', true),
-            //new TransferSet('postgres_table_web.sql', 'public.simidata_postgres_table', true),
-            //new TransferSet('dataproduct_pub_scope_web.sql', 'public.simiproduct_data_product_pub_scope', true),
-            new TransferSet('dataproduct_web.sql', 'public.simiproduct_data_product_neu', true),
-            //new TransferSet('dataproduct_single_actor_web.sql', 'public.simiproduct_single_actor', true),
-            //new TransferSet('product_data_set_view_web.sql', 'public.simiproduct_data_set_view', true),
-            //new TransferSet('facadelayer_web.sql', 'public.simiproduct_facade_layer', true),
-            //new TransferSet('productlist_web.sql', 'public.simiproduct_product_list', true),
-            //new TransferSet('layergroup_web.sql', 'public.simiproduct_layer_group', true),
-            //new TransferSet('tableview_web.sql', 'public.simidata_table_view', true),
-            //new TransferSet('tablefield_web.sql', 'public.simidata_table_field', true),
-            //new TransferSet('viewfield_web.sql', 'public.simidata_view_field', true),
-            //new TransferSet('rasterds_web.sql', 'public.simidata_raster_ds', true), 
-            //new TransferSet('rasterview_web.sql', 'public.simidata_raster_view', true), 
-            //new TransferSet('map_web.sql', 'public.simiproduct_map', true),
-            //new TransferSet('product_properties_in_list_web.sql', 'public.simiproduct_properties_in_list', true),
-            //new TransferSet('product_properties_in_facade_web.sql', 'public.simiproduct_properties_in_facade', true),
+            //new TransferSet('postgres_db_web.sql', 'simi.simidata_postgres_db', true),
+            //new TransferSet('model_schema_web.sql', 'simi.simidata_data_theme', true),
+            //new TransferSet('postgres_table_web.sql', 'simi.simidata_postgres_table', true),
+            //new TransferSet('dataproduct_web.sql', 'simi.simiproduct_data_product', true),
+            //new TransferSet('dataproduct_single_actor_web.sql', 'simi.simiproduct_single_actor', true),
+            //new TransferSet('product_data_set_view_web.sql', 'simi.simidata_data_set_view', true),
+            //new TransferSet('facadelayer_web.sql', 'simi.simiproduct_facade_layer', true),
+            //new TransferSet('productlist_web.sql', 'simi.simiproduct_product_list', true),
+            //new TransferSet('layergroup_web.sql', 'simi.simiproduct_layer_group', true),
+            //new TransferSet('tableview_web.sql', 'simi.simidata_table_view', true),
+            //new TransferSet('tablefield_web.sql', 'simi.simidata_table_field', true),
+            //new TransferSet('viewfield_web.sql', 'simi.simidata_view_field', true),
+            //new TransferSet('rasterds_web.sql', 'simi.simidata_raster_ds', true), 
+            //new TransferSet('rasterview_web.sql', 'simi.simidata_raster_view', true), 
+            //new TransferSet('map_web.sql', 'simi.simiproduct_map', true),
+            //new TransferSet('product_properties_in_list_web.sql', 'simi.simiproduct_properties_in_list', true),
+            //new TransferSet('product_properties_in_facade_web.sql', 'simi.simiproduct_properties_in_facade', true),
     ]
 }
 
@@ -35,13 +33,13 @@ task iam(type: Db2Db){
     sourceDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
     targetDb = [dbUriSimi_web, dbUserSimi_web, dbPwdSimi_web]
     transferSets = [
-            new TransferSet('identity_web.sql', 'public.simiiam_identity', true),
-            new TransferSet('user_web.sql', 'public.simiiam_user', true),
-            new TransferSet('group_web.sql', 'public.simiiam_group', true),
-            new TransferSet('group_user_web.sql', 'public.simiiam_group_user_link', true),
-            new TransferSet('role_web.sql', 'public.simiiam_role', true),
-            new TransferSet('role_group_web.sql', 'public.simiiam_role_group_link', true),
-            new TransferSet('user_role_web.sql', 'public.simiiam_role_user_link', true),
-            new TransferSet('permissions_web.sql', 'public.simiiam_permission', true),
+            new TransferSet('identity_web.sql', 'simi.simiiam_identity', true),
+            new TransferSet('user_web.sql', 'simi.simiiam_user', true),
+            new TransferSet('group_web.sql', 'simi.simiiam_group', true),
+            new TransferSet('group_user_web.sql', 'simi.simiiam_group_user_link', true),
+            new TransferSet('role_web.sql', 'simi.simiiam_role', true),
+            new TransferSet('role_group_web.sql', 'simi.simiiam_role_group_link', true),
+            new TransferSet('user_role_web.sql', 'simi.simiiam_role_user_link', true),
+            //new TransferSet('permissions_web.sql', 'simi.simiiam_permission', true),
     ]
 }

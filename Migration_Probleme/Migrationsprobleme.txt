@@ -1,0 +1,18 @@
+Layer die rausgeflogen sind: 
+
+- somap	Root-Layer für WMS
+- somap	Root-Layer für WFS
+- ch.are.bauzonen	Bauzonen (Quelle Bund)
+- ch.are.bauzonen_wmts	Bauzonen WMTS
+
+Maps enthalten keine Layergroups mehr. Siehe Exceltabelle. 
+
+Reports werden nicht automatisch migriert. Auch die Beziehungen Layer - Report logischerweise nicht.
+
+Beschreinung und Bemerkungen muss evtl. noch angeschaut werden.
+
+Attribut-Formatierungen (JSONs) funktionieren im Simi noch nicht. 
+
+
+
+

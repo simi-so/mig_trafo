@@ -6,10 +6,7 @@ SELECT
 	    else FALSE 
 	end AS raw_download,  
 	qgs_style AS style_server, 
-	client_qgs_style AS style_desktop, 
-	1 AS search_type, --Muss im definitiven noch korrigiert werden!!!
-	NULL AS search_facet, 
-	filter_word AS search_filter_word
+	client_qgs_style AS style_desktop 
 FROM 
     simiproduct_data_product product, 
     simiproduct_single_actor single_actor,

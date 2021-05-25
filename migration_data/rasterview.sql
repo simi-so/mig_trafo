@@ -4,7 +4,7 @@ SELECT
 FROM 
 	gdi_knoten.data_source source,
 	gdi_knoten.data_set dataset,
-	simiproduct_data_set_view datasetview, 
+	simidata_data_set_view datasetview, 
 	simiproduct_data_product data_product,
 	simidata_raster_ds rasterds
 WHERE 

@@ -1,13 +1,17 @@
 SELECT 
     product_data_set_view.id,
-    NULL AS where_clause,
-    gdi_data_set_view.geometry_column AS geom_field_name,
-    NULL AS geo_type,
-    NULL AS geo_epsg_code,
-    false AS wgc_edit,
-    tableds.id AS postgres_table_id
+    tableds.id AS postgres_table_id, 
+    case when gdi_data_set_view.searchable = 0
+         then '1_no_search' 
+         when gdi_data_set_view.searchable = 1 
+         then '2_if_loaded' 
+         when gdi_data_set_view.searchable = 2 
+         then '3_always' 
+     end AS search_type, 
+    gdi_data_set_view.facet AS search_facet, 
+    gdi_data_set_view.filter_word AS search_filter_word
 FROM 
-    simiproduct_data_set_view product_data_set_view, 
+    simidata_data_set_view product_data_set_view, 
     simiproduct_data_product product_data_product,
 	gdi_knoten.ows_layer,
 	gdi_knoten.ows_layer_data,
@@ -17,14 +21,21 @@ FROM
 	 FROM gdi_knoten.data_set data_set
 	 LEFT JOIN 
 	    (SELECT 
-             id, 
-	         ext1||'.'||table_name AS schema_and_table, 
-		     ext2 AS database_id
-             FROM 
-	         public.simidata_table_ds table_ds
+             postgres_table.id, 
+	         schema_name||'.'||table_name AS schema_and_table, 
+		     postgres_db_id AS database_id, 
+		     postgres_table.remarks as gdi_oid
+         FROM 
+	         public.simidata_postgres_table postgres_table
+	     left join
+	         public.simidata_data_theme data_theme
+	         on 
+	         postgres_table.data_theme_id = data_theme.id 
 	     ) tableds
 	 ON 
-	 tableds.schema_and_table = data_set.data_set_name
+	 data_set.gdi_oid = any (tableds.gdi_oid::int[]) 
+	 where 
+	     data_set.gdi_oid in (select gdi_oid_data_set from gdi_knoten.data_set_view dsv)
 	 ) tableds, 
 	 database_ids
 WHERE 

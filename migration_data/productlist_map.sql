@@ -3,4 +3,4 @@ SELECT
 FROM 
     simiproduct_data_product 
 WHERE 
-    dtype = '2'
+    dtype = 'simiProduct_Map'

@@ -4,10 +4,12 @@ SELECT
     create_ts,
     created_by, 
     update_ts, 
-    1 AS dtype, --MUSS NOCH ANGEPASST WERDEN!!!
+    1 AS dtype, --Wird später in einem Script gesetzt
     ident AS identifier, 
-    '0a866696-8903-c333-c2c7-db6b6fd8d628'::uuid AS pub_scope_id,  --MUSS NOCH ANGEPASST WERDEN (woher soll diese Information kommen?)
+    description as remarks, --Nicht ganz sicher ob das hier richtig ist.
+    '0a866696-8903-c333-c2c7-db6b6fd8d628'::uuid AS pub_scope_id,  --Wird später per Script gesetzt
     keywords AS keywords,
+    ows_metadata->>'abstract' as description, --Nicht ganz sicher ob das hier richtig ist.
     synonyms AS synonyms, 
 	display AS title
 FROM 
@@ -29,7 +31,9 @@ FROM
                     WHEN ows_layer.ows_metadata IS NULL THEN false
                     WHEN btrim(ows_layer.ows_metadata::text) = ''::text THEN false
                     ELSE true
-                END AS dset_info
+                END AS dset_info, 
+            ows_layer.ows_metadata::json, 
+            ows_layer.description
            FROM gdi_knoten.ows_layer
              LEFT JOIN gdi_knoten.ows_layer_group ON ows_layer.gdi_oid = ows_layer_group.gdi_oid
 	         LEFT JOIN gdi_knoten.ows_layer_data ON ows_layer.gdi_oid = ows_layer_data.gdi_oid 

@@ -3,31 +3,242 @@ import ch.so.agi.gretl.api.TransferSet
 
 apply plugin: 'ch.so.agi.gretl'
 
-defaultTasks 'data'
+defaultTasks 'permissions'
+//defaultTasks 'data_data_set_view'
 
-task data(type: Db2Db){
+task insert_pub_scopes(type: SqlExecutor){
+    description = "fügt die Pub_scopes in die DB ein"
+    database = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    sqlFiles = [
+            '30.create-db.sql'
+    ]
+}
+
+task postgres_db(type: Db2Db, dependsOn: insert_pub_scopes){
     sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
     targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
     transferSets = [
-            //new TransferSet('postgres_db.sql', 'public.simidata_postgres_db', true),
-            //new TransferSet('model_schema.sql', 'public.simidata_model_schema', true),
-            //new TransferSet('table_ds.sql', 'public.simidata_table_ds', true),
-            //new TransferSet('postgres_table.sql', 'public.simidata_postgres_table', true),
-            //new TransferSet('dataproduct.sql', 'public.simiproduct_data_product', true),
-            //new TransferSet('dataproduct_single_actor.sql', 'public.simiproduct_single_actor', true),
-            //new TransferSet('product_data_set_view.sql', 'public.simiproduct_data_set_view', true),
-            //new TransferSet('facadelayer.sql', 'public.simiproduct_facade_layer', true),
-            //new TransferSet('productlist.sql', 'public.simiproduct_product_list', true),
-            //new TransferSet('layergroup.sql', 'public.simiproduct_layer_group', true),
-            //new TransferSet('tableview.sql', 'public.simidata_table_view', true),
-            //new TransferSet('tablefield.sql', 'public.simidata_table_field', true),
-            //new TransferSet('viewfield.sql', 'public.simidata_view_field', true),
-            //new TransferSet('rasterds.sql', 'public.simidata_raster_ds', true), 
-            //new TransferSet('rasterview.sql', 'public.simidata_raster_view', true), 
-            //new TransferSet('dataproduct_map.sql', 'public.simiproduct_data_product', false),
-            //new TransferSet('productlist_map.sql', 'public.simiproduct_product_list', false),
-            //new TransferSet('map.sql', 'public.simiproduct_map', true),
-            //new TransferSet('product_properties_in_list.sql', 'public.simiproduct_properties_in_list', true),
-            //new TransferSet('product_properties_in_facade.sql', 'public.simiproduct_properties_in_facade', true),
+            new TransferSet('postgres_db.sql', 'public.simidata_postgres_db', true)
+        ]
+    }
+
+//ACHTUNG: Foreign-Key abhängigkeiten!!!
+task data_theme(type: Db2Db, dependsOn: postgres_db){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('data_theme.sql', 'public.simidata_data_theme', true)
+        ]
+    }
+
+task postgres_table(type: Db2Db, dependsOn: data_theme){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('postgres_table.sql', 'public.simidata_postgres_table', true)
+        ]
+    }
+
+// dependsOn: postgres_table
+task dataproduct(type: Db2Db, dependsOn: postgres_table){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('dataproduct.sql', 'public.simiproduct_data_product', true)
+        ]
+    }
+
+//dependsOn: dataproduct
+task dataproduct_single_actor(type: Db2Db, dependsOn: dataproduct){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('dataproduct_single_actor.sql', 'public.simiproduct_single_actor', true)
+        ]
+    }
+
+//dependsOn: dataproduct_single_actor
+task data_data_set_view(type: Db2Db, dependsOn: dataproduct_single_actor){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('data_data_set_view.sql', 'public.simidata_data_set_view', true)
+        ]
+    }
+
+
+
+//dependsOn: data_data_set_view
+task facadelayer(type: Db2Db, dependsOn: data_data_set_view){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('facadelayer.sql', 'public.simiproduct_facade_layer', true)
+        ]
+    }
+
+//dependsOn: facadelayer
+task productlist(type: Db2Db, dependsOn: facadelayer){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('productlist.sql', 'public.simiproduct_product_list', true)
+        ]
+    }
+
+//dependsOn: productlist
+task layergroup(type: Db2Db, dependsOn: productlist){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('layergroup.sql', 'public.simiproduct_layer_group', true)
+        ]
+    }
+
+//dependsOn: layergroup
+task tableview(type: Db2Db, dependsOn: layergroup){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('tableview.sql', 'public.simidata_table_view', true)
+        ]
+    }
+
+//dependsOn: tableview
+task tablefield(type: Db2Db, dependsOn: tableview){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('tablefield.sql', 'public.simidata_table_field', true)
+        ]
+    }
+
+//dependsOn: tablefield
+task viewfield(type: Db2Db, dependsOn: tablefield){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('viewfield.sql', 'public.simidata_view_field', true)
+        ]
+    }
+
+//dependsOn: viewfield
+task rasterds(type: Db2Db, dependsOn: viewfield){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('rasterds.sql', 'public.simidata_raster_ds', true)
+        ]
+    }
+
+//dependsOn: rasterds
+task rasterview(type: Db2Db, dependsOn: rasterds){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('rasterview.sql', 'public.simidata_raster_view', true)
+        ]
+    }
+
+//dependsOn:rasterview
+task dataproduct_map(type: Db2Db, dependsOn:rasterview){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('dataproduct_map.sql', 'public.simiproduct_data_product', false)
+        ]
+    }
+
+//dependsOn: dataproduct_map
+task productlist_map(type: Db2Db, dependsOn: dataproduct_map){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('productlist_map.sql', 'public.simiproduct_product_list', false)
+        ]
+    }
+
+//dependsOn: productlist_map
+task map(type: Db2Db, dependsOn: productlist_map){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('map.sql', 'public.simiproduct_map', true)
+        ]
+    }
+
+task create_view_old_and_new_groups_and_subs(type: SqlExecutor, dependsOn: map){
+    description = "erstellt die View old_and_new_groups_and_subs"
+    database = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    sqlFiles = [
+            'old_groups_and_subs.sql'
     ]
 }
+// VORHER MUSS DIE VIEW public."old_and_new_groups_and_subs" erstellt werden. 
+//dependsOn: map
+task product_properties_in_list(type: Db2Db, dependsOn: create_view_old_and_new_groups_and_subs){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('product_properties_in_list.sql', 'public.simiproduct_properties_in_list', true)
+        ]
+    }
+
+task create_view_old_map_and_subs(type: SqlExecutor, dependsOn: product_properties_in_list){
+    description = "erstellt die View old_map_and_subs"
+    database = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    sqlFiles = [
+            'old_maps_and_subs.sql'
+    ]
+}
+// VORHER MUSS DIE VIEW public."old_and_new_maps_and_subs" erstellt werden. 
+//dependsOn: map
+task product_properties_map_in_list(type: Db2Db, dependsOn: create_view_old_map_and_subs){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('product_properties_map_in_list.sql', 'public.simiproduct_properties_in_list', false)
+        ]
+    }
+
+//dependsOn: product_properties_in_list
+task product_properties_in_facade(type: Db2Db, dependsOn: product_properties_map_in_list){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('product_properties_in_facade.sql', 'public.simiproduct_properties_in_facade', true)
+        ]
+    }
+
+task set_pub_scopes(type: SqlExecutor, dependsOn: product_properties_in_facade){
+    description = "setzt den Pub_scope"
+    database = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    sqlFiles = [
+            'set_pub_scope.sql'
+    ]
+}
+
+task set_dtypes(type: SqlExecutor, dependsOn: set_pub_scopes){
+    description = "setzt die dtypes der dataProducts"
+    database = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    sqlFiles = [
+            'set_dataProduct_dtypes.sql'
+    ]
+}
+
+task permissions(type: Db2Db, dependsOn: set_dtypes){
+    sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
+    targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
+    transferSets = [
+            new TransferSet('permissions.sql', 'public.simiiam_permission', false)
+    ]
+}
+
+
+//task aufraeumen(type: SqlExecutor, dependsOn: permissions){
+//    description = "Räumt auf"
+//    database = [dbUriSimi, dbUserSimi, dbPwdSimi]
+//    sqlFiles = [
+//            'aufraeumen.sql'
+//    ]
+//}

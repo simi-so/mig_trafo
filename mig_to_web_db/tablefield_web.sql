@@ -5,21 +5,16 @@ SELECT
     created_by, 
     update_ts, 
     updated_by, 
-    delete_ts, 
-    deleted_by, 
-    ext1, 
-    ext2, 
-    ext3, 
-    ext4, 
-    ext5, 
     name, 
     description_model, 
     description_override, 
-    type_name, 
-    mandatory, 
-    reg_ex_pattern, 
+    'Stellvertreter' AS type_name, 
+    mandatory,  
     str_length, 
     cat_synced, 
-    postgres_table_id
+    postgres_table_id, 
+    alias,
+    wms_fi_format,
+    display_props4_json
 FROM 
     public.simidata_table_field;

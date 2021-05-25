@@ -1,6 +1,5 @@
 SELECT 
     id, 
-    background, 
-    wgc_url_value
+    background
 FROM 
     public.simiproduct_map;

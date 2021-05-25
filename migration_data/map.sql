@@ -1,7 +1,6 @@
 SELECT 
     id, 
-    false AS background, 
-    RTRIM(identifier, '_map') AS wgc_url_value
+    false AS background --Was ist das genau? 
 FROM 
     simiproduct_data_product
 WHERE 
