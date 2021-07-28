@@ -5,7 +5,7 @@ apply plugin: 'ch.so.agi.gretl'
 
 defaultTasks 'permissions'
 //defaultTasks 'data_data_set_view'
-
+/*
 task insert_pub_scopes(type: SqlExecutor){
     description = "fügt die Pub_scopes in die DB ein"
     database = [dbUriSimi, dbUserSimi, dbPwdSimi]
@@ -13,8 +13,9 @@ task insert_pub_scopes(type: SqlExecutor){
             '30.create-db.sql'
     ]
 }
+*/
 
-task postgres_db(type: Db2Db, dependsOn: insert_pub_scopes){
+task postgres_db(type: Db2Db){
     sourceDb = [dbUriConfig, dbUserConfig, dbPwdConfig]
     targetDb = [dbUriSimi, dbUserSimi, dbPwdSimi]
     transferSets = [
